@@ -3,7 +3,14 @@
 Debian's **vips 8.18.7-1** rebuilt for Ubuntu series that ship something
 older, and published to the Forgejo Debian registry.
 
-Resolute (26.04) carries `libvips42t64 8.18.0-1build1`; this brings 8.18.7.
+Stonking (26.10) carries `libvips42t64 8.18.5-1`; this brings 8.18.7.
+
+**Resolute (26.04) is deliberately not built.** vips 8.18.7 build-depends on
+`libopenexr-dev (>= 3.4.6+ds-4)` and resolute ships `3.1.13-2build1` — three
+major versions behind, where stonking has `3.4.6+ds-4ubuntu3`. Backporting vips
+there means backporting OpenEXR first, and likely Imath behind that, for a
+series whose archive libvips is only a point release behind. It has never
+built: the registry has only ever held `~ubuntu26.10~` vips packages.
 
 ## What this repository contains
 
