@@ -1,0 +1,15 @@
+# Build output. The upstream source is fetched, never committed: see
+# .forgejo/upstream.conf.
+/build/
+*.deb
+*.ddeb
+*.buildinfo
+*.changes
+debian/files
+debian/*.substvars
+debian/*.debhelper
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/tmp/
+debian/libvips*/
+debian/vips*/
