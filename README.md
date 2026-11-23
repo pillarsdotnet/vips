@@ -1,20 +1,20 @@
-# vips — backport packaging
+# `vips` — `backport` packaging
 
-Debian's **vips 8.18.7-1** rebuilt for Ubuntu series that ship something
-older, and published to the Forgejo Debian registry.
+Debian's **`vips` 8.18.7-1** rebuilt for Ubuntu series that ship something
+older, and published to the `Forgejo` Debian registry.
 
-Stonking (26.10) carries `libvips42t64 8.18.5-1`; this brings 8.18.7.
+`stonking` (26.10) carries `libvips42t64 8.18.5-1`; this brings 8.18.7.
 
-**Resolute (26.04) is deliberately not built.** vips 8.18.7 build-depends on
+**`Resolute` (26.04) is deliberately not built.** `vips` 8.18.7 build-depends on
 `libopenexr-dev (>= 3.4.6+ds-4)` and resolute ships `3.1.13-2build1` — three
-major versions behind, where stonking has `3.4.6+ds-4ubuntu3`. Backporting vips
-there means backporting OpenEXR first, and likely Imath behind that, for a
-series whose archive libvips is only a point release behind. It has never
-built: the registry has only ever held `~ubuntu26.10~` vips packages.
+major versions behind, where `stonking` has `3.4.6+ds-4ubuntu3`. Backporting `vips`
+there means backporting OpenEXR first, and likely `Imath` behind that, for a
+series whose archive `libvips` is only a point release behind. It has never
+built: the registry has only ever held `~ubuntu26.10~` `vips` packages.
 
 ## What this repository contains
 
-**Only `debian/`.** The upstream source is *not* committed — it is fetched at
+**Only `debian/`.** The upstream source is _not_ committed — it is fetched at
 build time from the `.dsc` named in `.forgejo/upstream.conf`:
 
 ```sh
@@ -27,12 +27,12 @@ a source tree, and makes rebasing onto a newer upstream a one-line change.
 every build, so nothing is trusted on the strength of a URL alone.
 
 The packaging delta against Debian is currently **nothing at all** — `debian/`
-is Debian's `8.18.7-1` verbatim, and CI adds the backport changelog entry at
+is Debian's `8.18.7-1` verbatim, and CI adds the `backport` changelog entry at
 build time. This is a straight rebuild, not a patched fork. If that stops being
 true, the difference will live in `debian/` and show up in `git diff`, which is
 the point of having this repository at all.
 
-**Debian removes superseded versions from its pool.** The sibling libuv1 backport hit exactly that: its first build 404'd on a
+**Debian removes superseded versions from its pool.** The sibling libuv1 `backport` hit exactly that: its first build 404'd on a
 version Debian had dropped. If a
 build fails to fetch, look at the pool directory above for the current `.dsc`
 before assuming anything else is wrong.
@@ -40,8 +40,8 @@ before assuming anything else is wrong.
 ## The build drops privileges
 
 `dpkg-buildpackage` runs as an unprivileged `builder` user, not as root.
-Test suites routinely refuse to run as root -- libuv's says so outright, and
-that failed the sibling backport's first build.
+Test suites routinely refuse to run as root -- `libuv`'s says so outright, and
+that failed the sibling `backport`'s first build.
 
 Launchpad never hit this because its builders are unprivileged; a container is
 root by default, so the build has to drop privileges itself.
@@ -60,7 +60,7 @@ already there and is not treated as an error.
 
 1. Find the new `.dsc` on <https://deb.debian.org/debian/pool/main/v/vips/>.
 2. Update `UPSTREAM_DSC` in `.forgejo/upstream.conf`.
-3. Replace `debian/` with the new upstream's, since this backport carries no
+3. Replace `debian/` with the new upstream's, since this `backport` carries no
    patches of its own: `dget -du <dsc> && dpkg-source -x *.dsc src` then copy
    `src/debian` over. Carrying an old `debian/` forward onto new source is a mismatch, not a
    rebase: Debian moved 17 files between two libuv1 revisions.
